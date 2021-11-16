@@ -6,7 +6,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.BoxLayout;
@@ -75,7 +79,23 @@ public class BadIOGUI {
         read.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-               System.out.println("Reading...");
+                /*
+                 * This would be VERY BAD in a real application.
+                 * 
+                 * This makes the Event Dispatch Thread (EDT) work on an I/O
+                 * operation. I/O operations may take a long time, during which
+                 * your UI becomes completely unresponsive.
+                 */
+                try {
+                    final List<String> list = Files.readAllLines(Path.of(PATH));
+
+                    for (final String str : list) {
+                        System.out.println(str);
+                    }
+                } catch (IOException e2) {
+                    JOptionPane.showMessageDialog(frame, e2, "Error", JOptionPane.ERROR_MESSAGE);
+                    e2.printStackTrace();
+                }
             }
         });
     }
