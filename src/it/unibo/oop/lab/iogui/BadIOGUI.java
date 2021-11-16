@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Random;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -37,8 +38,17 @@ public class BadIOGUI {
     public BadIOGUI() {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
+
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        canvas.add(panel);
+
         final JButton write = new JButton("Write on file");
-        canvas.add(write, BorderLayout.CENTER);
+        panel.add(write, BorderLayout.CENTER);
+
+        final JButton read = new JButton("Read from file");
+        panel.add(read, BorderLayout.CENTER);
+
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
@@ -62,6 +72,12 @@ public class BadIOGUI {
                 }
             }
         });
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+               System.out.println("Reading...");
+            }
+        });
     }
 
     private void display() {
@@ -83,6 +99,10 @@ public class BadIOGUI {
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
+        /*
+         * Resize the frame to the minimum size prior to displaying
+         */
+        frame.pack();
         /*
          * OK, ready to pull the frame onscreen
          */
