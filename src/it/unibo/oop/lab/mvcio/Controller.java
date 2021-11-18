@@ -1,25 +1,20 @@
 package it.unibo.oop.lab.mvcio;
 
+import java.io.File;
+//import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+//import java.io.PrintStream;
+
 /**
+ * This class must implement a simple controller responsible of I/O access. It
+ * considers a single file at a time, and it is able to serialise objects in it.
  * 
  */
-public class Controller {
+public class Controller implements ControllerInterface {
 
+    private File file;
     /*
-     * This class must implement a simple controller responsible of I/O access. It
-     * considers a single file at a time, and it is able to serialize objects in it.
-     * 
-     * Implement this class with:
-     * 
-     * 1) A method for setting a File as current file
-     * 
-     * 2) A method for getting the current File
-     * 
-     * 3) A method for getting the path (in form of String) of the current File
-     * 
-     * 4) A method that gets a String as input and saves its content on the current
-     * file. This method may throw an IOException.
-     * 
      * 5) By default, the current file is "output.txt" inside the user home folder.
      * A String representing the local user home folder can be accessed using
      * System.getProperty("user.home"). The separator symbol (/ on *nix, \ on
@@ -27,5 +22,57 @@ public class Controller {
      * System.getProperty("file.separator"). The combined use of those methods leads
      * to a software that runs correctly on every platform.
      */
+    private static final String PATH = System.getProperty("user.home")
+        + System.getProperty("file.separator");
 
+    public Controller() {
+        this(new File(PATH + "output.txt"));
+    }
+/*
+    public Controller(final String nameFile) {
+        this(new File(PATH + nameFile));
+    }*/
+
+    public Controller(final File file) {
+        this.file = file;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setCurrentFile(final File file) {
+        this.file = file;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public File getCurrentFile() {
+        return this.file;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getCurrentFilePath() {
+        return this.file.getPath();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addLine(final String line) throws IOException {
+        try (FileWriter fw = new FileWriter(file)) {
+            System.out.println(line);
+            fw.write(line + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /*
+        try (PrintStream ps = new PrintStream(this.getCurrentFilePath())) {
+            ps.print(newLine);
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }*/
+    }
 }
