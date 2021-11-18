@@ -4,8 +4,8 @@
 package it.unibo.oop.lab.simplegui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+//import java.awt.Dimension;
+//import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 public class MiniGUI {
 
     private static final String TITLE = "A very simple GUI application";
-    private static final int PROPORTION = 5;
+    //private static final int PROPORTION = 5;
     private final Random rng = new Random();
     private final JFrame frame = new JFrame(TITLE);
 
@@ -43,7 +43,7 @@ public class MiniGUI {
         canvas.add(panel);
 
         final JButton write = new JButton("Print a random number on standard output");
-        panel.add(write, BorderLayout.CENTER);
+        panel.add(write);
 
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,21 +74,21 @@ public class MiniGUI {
          * issue). It is MUCH better than manually specify the size of a window
          * in pixel: it takes into account the current resolution.
          */
-        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        /*final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / PROPORTION, sh / PROPORTION);
-
+        */
+        /*
+         * Resize the frame to the minimum size prior to displaying
+         */
+        frame.pack();
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
-        /*
-         * Resize the frame to the minimum size prior to displaying
-         */
-        frame.pack();
         /*
          * OK, ready to pull the frame onscreen
          */
