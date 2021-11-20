@@ -68,6 +68,7 @@ public final class SimpleGUIWithFileChooser {
 
         final JTextField file = new JTextField();
         file.setEditable(false);
+        file.setText(Controller.DEFAULT_FILE);
         bar.add(file);
 
         final JButton browse = new JButton("Browse");
@@ -94,7 +95,7 @@ public final class SimpleGUIWithFileChooser {
                  */
                 try {
                     final String text = area.getText();
-                    final Controller controller = new Controller();
+                    final Controller controller = new Controller(file.getText());
                     controller.addLine(text);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(frame, ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -111,11 +112,23 @@ public final class SimpleGUIWithFileChooser {
                  * parameter 'null' make the FileChooser be put by OS as it wants
                  * parameter 'frame' make the FileChooser be attached to parent 'frame'
                  */
-                final int returnVal = selector.showOpenDialog(frame);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    final String chosenFile = selector.getSelectedFile().getName();
-                    file.setText(chosenFile);
-                    //System.out.println("You chose to open this file: " + chosenFile;
+                final int returnVal = selector.showSaveDialog(frame);
+
+                switch (returnVal) {
+                    case JFileChooser.APPROVE_OPTION:
+                        final String chosenFile = selector.getSelectedFile().getName();
+                        file.setText(chosenFile);
+                        /*
+                         * Press the save button for 0 milliseconds (no visually pressed)
+                         */
+                        save.doClick(0);
+                        break;
+                    case JFileChooser.CANCEL_OPTION:
+                        break;
+                    default:
+                        final String errorMessage = "Error while choosing a file to save!";
+                        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
                 }
             }
         });

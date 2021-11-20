@@ -27,15 +27,15 @@ public class Controller implements ControllerInterface {
     /**
      * This variable defines the standard name of save file.
      */
-    private static final String DEFAULT_FILE = "output.txt";
+    public static final String DEFAULT_FILE = "output.txt";
 
     public Controller() {
         this(new File(Controller.PATH + Controller.DEFAULT_FILE));
     }
-/*
+
     public Controller(final String nameFile) {
         this(new File(Controller.PATH + nameFile));
-    }*/
+    }
 
     public Controller(final File file) {
         this.file = file;
