@@ -24,9 +24,13 @@ public class Controller implements ControllerInterface {
      */
     private static final String PATH = System.getProperty("user.home")
         + System.getProperty("file.separator");
+    /**
+     * This variable defines the standard name of save file.
+     */
+    private static final String DEFAULT_FILE = "output.txt";
 
     public Controller() {
-        this(new File(Controller.PATH + "output.txt"));
+        this(new File(Controller.PATH + Controller.DEFAULT_FILE));
     }
 /*
     public Controller(final String nameFile) {
