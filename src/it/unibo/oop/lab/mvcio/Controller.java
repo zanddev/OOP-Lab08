@@ -26,11 +26,11 @@ public class Controller implements ControllerInterface {
         + System.getProperty("file.separator");
 
     public Controller() {
-        this(new File(PATH + "output.txt"));
+        this(new File(Controller.PATH + "output.txt"));
     }
 /*
     public Controller(final String nameFile) {
-        this(new File(PATH + nameFile));
+        this(new File(Controller.PATH + nameFile));
     }*/
 
     public Controller(final File file) {
