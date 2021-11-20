@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import it.unibo.oop.lab.mvcio.Controller;
 
@@ -60,6 +62,17 @@ public final class SimpleGUIWithFileChooser {
         final JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
+        final JPanel bar = new JPanel();
+        bar.setLayout(new BorderLayout());
+        panel.add(bar, BorderLayout.NORTH);
+
+        final JTextField file = new JTextField();
+        file.setEditable(false);
+        bar.add(file);
+
+        final JButton browse = new JButton("Browse");
+        bar.add(browse, BorderLayout.LINE_END);
+
         final JTextArea area = new JTextArea();
         panel.add(area);
 
@@ -86,6 +99,23 @@ public final class SimpleGUIWithFileChooser {
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(frame, ex, "Error", JOptionPane.ERROR_MESSAGE);
                     ex.printStackTrace();
+                }
+            }
+        });
+        browse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+
+                final JFileChooser selector = new JFileChooser();
+                /*
+                 * parameter 'null' make the FileChooser be put by OS as it wants
+                 * parameter 'frame' make the FileChooser be attached to parent 'frame'
+                 */
+                final int returnVal = selector.showOpenDialog(frame);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    final String chosenFile = selector.getSelectedFile().getName();
+                    file.setText(chosenFile);
+                    //System.out.println("You chose to open this file: " + chosenFile;
                 }
             }
         });
