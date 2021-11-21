@@ -66,10 +66,10 @@ public final class SimpleGUIWithFileChooser {
         bar.setLayout(new BorderLayout());
         panel.add(bar, BorderLayout.NORTH);
 
-        final JTextField file = new JTextField();
-        file.setEditable(false);
-        file.setText(Controller.DEFAULT_FILE);
-        bar.add(file);
+        final JTextField nameFile = new JTextField();
+        nameFile.setEditable(false);
+        nameFile.setText(Controller.DEFAULT_FILE);
+        bar.add(nameFile);
 
         final JButton browse = new JButton("Browse");
         bar.add(browse, BorderLayout.LINE_END);
@@ -95,7 +95,7 @@ public final class SimpleGUIWithFileChooser {
                  */
                 try {
                     final String text = area.getText();
-                    final Controller controller = new Controller(file.getText());
+                    final Controller controller = new Controller(nameFile.getText());
                     controller.addLine(text);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(frame, ex, "Error", JOptionPane.ERROR_MESSAGE);
@@ -117,7 +117,7 @@ public final class SimpleGUIWithFileChooser {
                 switch (returnVal) {
                     case JFileChooser.APPROVE_OPTION:
                         final String chosenFile = selector.getSelectedFile().getName();
-                        file.setText(chosenFile);
+                        nameFile.setText(chosenFile);
                         /*
                          * Press the save button for 0 milliseconds (no visually pressed)
                          */
