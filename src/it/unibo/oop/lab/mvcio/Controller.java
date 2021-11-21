@@ -25,7 +25,8 @@ public class Controller implements ControllerInterface {
     private static final String PATH = System.getProperty("user.home")
         + System.getProperty("file.separator");
     /**
-     * This variable defines the standard name of save file.
+     * This variable defines the standard name of save file, used when not specified
+     * a more specific one.
      */
     public static final String DEFAULT_FILE = "output.txt";
 
